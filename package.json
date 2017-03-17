@@ -4,15 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "mocha",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "multipipe": "^1.0.2",
     "wrapped": "^1.0.1"
   },
   "devDependencies": {
+    "eslint": "^3.17.1",
+    "husky": "^0.13.2",
     "mocha": "^3.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avoronkin/f2s.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avoronkin/f2s/issues"
+  },
+  "homepage": "https://github.com/avoronkin/f2s"
 }
