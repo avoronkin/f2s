@@ -30,15 +30,12 @@ var readable = new stream.Readable({
 })
 
 readable
-.once('error', done)
 .pipe(testStream)
-.once('error', done)
 .on('data', function (data) {
     assert(data.cb)
     assert(data.promise)
     assert(data.sync)
 })
-.once('finish', done)
 
 readable.push({key:'value1'})
 readable.push({key:'value2'})
