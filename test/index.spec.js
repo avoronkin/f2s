@@ -5,7 +5,7 @@ var assert = require('assert')
 describe('f2s', function () {
     it('should work', function (done) {
 
-        var testStream = f2s([
+        var transformStream = f2s([
             function (doc, cb) {
                 doc.cb = true
                 cb(null, doc)
@@ -29,7 +29,7 @@ describe('f2s', function () {
 
         readable
             .once('error', done)
-            .pipe(testStream)
+            .pipe(transformStream)
             .once('error', done)
             .on('data', function (data) {
                 assert(data.cb)
