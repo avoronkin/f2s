@@ -12,12 +12,7 @@ function functionToStream (fn) {
     return new stream.Transform({
         objectMode: true,
         transform: function (doc, enc, next) {
-            var stream = this
-            wrapped(fn)(doc, function (err, doc) {
-                if (err) return next(err)
-                stream.push(doc)
-                next()
-            })
+            wrapped(fn).call(this, doc, next)
         }
     })
 }
