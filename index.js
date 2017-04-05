@@ -2,8 +2,9 @@ var pipe = require('multipipe')
 var stream = require('stream')
 var wrapped = require('wrapped')
 
-module.exports = function (fns) {
-    return pipe(fns.map(function (fn) {
+module.exports = function () {
+    var handlers = [].concat.apply([], arguments)
+    return pipe(handlers.map(function (fn) {
         return typeof fn === 'function' ? functionToStream(fn) : fn
     }))
 }
