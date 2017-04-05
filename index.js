@@ -4,7 +4,7 @@ var wrapped = require('wrapped')
 
 module.exports = function (fns) {
     return pipe(fns.map(function (fn) {
-        return functionToStream(fn)
+        return typeof fn === 'function' ? functionToStream(fn) : fn
     }))
 }
 
