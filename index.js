@@ -13,7 +13,17 @@ function functionToStream (fn) {
     return new stream.Transform({
         objectMode: true,
         transform: function (doc, enc, next) {
-            wrapped(fn).call(this, doc, next)
+            wrapped(fn).call(this, doc, function (err, doc) {
+                if (err) {
+                    return next(err)
+                }
+
+                if (doc) {
+                    return next(null, doc)
+                } else {
+                    next()
+                }
+            })
         }
     })
 }

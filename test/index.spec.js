@@ -43,7 +43,7 @@ describe('f2s', function () {
         readable.push(null)
     })
 
-    it('should work', function (done) {
+    it('can filter', function (done) {
 
         var transformStream = f2s(
             function (doc, cb) {
@@ -53,6 +53,9 @@ describe('f2s', function () {
             function (doc) {
                 return Promise.resolve()
                     .then(function () {
+                        if (doc.key !== 'value2') {
+                            return
+                        }
                         doc.promise = true
                         return doc
                     })
@@ -72,6 +75,7 @@ describe('f2s', function () {
             .pipe(transformStream)
             .once('error', done)
             .on('data', function (data) {
+                assert.equal(data.key, 'value2')
                 assert(data.cb)
                 assert(data.promise)
                 assert(data.sync)
@@ -80,6 +84,10 @@ describe('f2s', function () {
 
         readable.push({key:'value1'})
         readable.push({key:'value2'})
+        readable.push({key:'value1'})
+        readable.push({key:'value2'})
         readable.push(null)
     })
+
+
 })
